@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div id="left_content" class="col-md-4"></div>
+    <div id="login_content" class="col-md-4"><br>
+        <h2 style="align-content: center">修改密码</h2><br>
+        <div class="container-fluid">
+            <form method="post" action="/student/pwd_change/{{ request.session.username }}">
+                <div class="form-group">
+                    <label for="old_pwd">请输入旧密码</label>
+                    <input type="text" class="form-control" id="old_pwd" name="old_pwd">
+                </div>
+                <div class="form-group">
+                    <label for="new_pwd">请输入新密码</label>
+                    <input type="password" class="form-control" id="new_pwd" name="new_pwd">
+                </div>
+                <div class="form-group">
+                    <label for="new_pwd">请再次输入密码</label>
+                    <input type="password" class="form-control" id="new_pwd" name="new_pwd">
+                </div>
+                <div class="container col-md-10 col-md-offset-1" style="color: red">{{ info }}</div>
+                <br>
+                <br>
+                <div class="col-md-offset-4 col-md-3">
+                    <button type="submit" class="btn btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="right_content" class="col-md-4"></div>
+
+{#    <script>#}
+{#        $(function () {#}
+{#            $("#password2").blur(function () {#}
+{#                var passwd1 = $("#password").val();#}
+{#                var passwd2 = $("#password2").val();#}
+{#                if (passwd1 === passwd2){#}
+{#                    alert("两次密码输入一致")#}
+{#                }#}
+{#                else {#}
+{#                    alert("两次输入密码不一致")#}
+{#                }#}
+{#            })#}
+{#        })#}
+{#    </script>#}
+{% endblock %}

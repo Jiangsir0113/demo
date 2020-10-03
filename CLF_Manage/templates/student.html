@@ -1,0 +1,220 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div id="student_content" class="col-md-10 col-md-offset-1">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a class="btn" href="/student/student/">查看学生信息</a></li>
+            <li role="presentation"><a class="btn" data-toggle="modal" data-target="#add_stu_myModal">增加学生信息</a></li>
+            <!-- Modal -->
+            <div class="modal fade" id="add_stu_myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" class="form-horizontal" action="/student/add_student/">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">请按照以下格式添加学生信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="add_stu_name"
+                                           class="col-sm-2 control-label">学生姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"
+                                               id="add_stu_name{{ stu.id }}"
+                                               name="add_stu_name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_stu_sex"
+                                           class="col-sm-2 control-label">学生性别</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="add_stu_sex{{ stu.id }}"
+                                                name="add_stu_sex">
+                                            <option value="True">男</option>
+                                            <option value="False">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_stu_age"
+                                           class="col-sm-2 control-label">学生年龄</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="add_stu_age{{ stu.id }}"
+                                               name="add_stu_age">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_stu_phone"
+                                           class="col-sm-2 control-label">学生电话</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"
+                                               id="add_stu_phone{{ stu.id }}"
+                                               name="add_stu_phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">保存</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div id="select_student" class="col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>电话</th>
+                <th class="col-md-4">操作</th>
+                </thead>
+                <tbody>
+                {% for stu in stu_obj %}
+                    <tr>
+                        <td style="vertical-align: middle">{{ stu.id }}</td>
+                        <td style="vertical-align: middle">{{ stu.name }}</td>
+                        <td style="vertical-align: middle">
+                            {% if stu.sex %}
+                                男
+                            {% else %}
+                                女
+                            {% endif %} </td>
+                        <td style="vertical-align: middle">{{ stu.age }}</td>
+                        <td style="vertical-align: middle">{{ stu.phone }}</td>
+                        <td class="col-md-4">
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#myModal{{ stu.id }}">
+                                修改
+                            </button>
+                            <div class="modal fade" id="myModal{{ stu.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改学生信息</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="stu_name"
+                                                           class="col-sm-2 control-label">学生姓名</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"
+                                                               id="stu_name{{ stu.id }}"
+                                                               name="stu_name" value="{{ stu.name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="stu_sex"
+                                                           class="col-sm-2 control-label">学生性别</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" id="stu_sex{{ stu.id }}"
+                                                                name="stu_sex">
+                                                            {% if stu.sex %}
+                                                                <option value="True" selected>男</option>
+                                                                <option value="False">女</option>
+                                                            {% else %}
+                                                                <option value="False" selected>女</option>
+                                                                <option value="True">男</option>
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="stu_age"
+                                                           class="col-sm-2 control-label">学生年龄</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="stu_age{{ stu.id }}"
+                                                               name="stu_age" value="{{ stu.age }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="stu_phone"
+                                                           class="col-sm-2 control-label">学生电话</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"
+                                                               id="stu_phone{{ stu.id }}"
+                                                               name="stu_phone" value="{{ stu.phone }}">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="model_btn{{ stu.id }}"
+                                                    stu_id="{{ stu.id }}" class="btn btn-primary modal_btn">保存
+                                            </button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/student/delete/{{ stu.id }}" class="btn btn-danger">GET删除</a>
+                            <button id="delete_stu{{ stu.id }}" stu_id="{{ stu.id }}" class="btn btn-danger stu_id">
+                                POST删除
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".stu_id").click(function () {
+                $.ajax({
+                    url: '/student/delete2/',
+                    type: 'post',
+                    data: {'stu_id': $(this).attr('stu_id')},
+                    success: function (data) {
+                        if (data.msg === 1) {
+                            location.href = '/student/student/'
+                        } else {
+                            alert('删除失败')
+                        }
+                    }
+                })
+            });
+            $(".modal_btn").click(function () {
+                {#var inputs = $(this).parent().prev().children().children().find("input");#}
+                {#var stu_name = inputs.eq(0).val();#}
+                {#var stu_sex = inputs.eq(1).val();#}
+                {#var stu_age = inputs.eq(2).val();#}
+                {#var stu_phone = inputs.eq(3).val();#}
+                var stu_id = $(this).attr("stu_id");
+                var stu_name = $("#stu_name" + stu_id).val();
+                var stu_sex = $("#stu_sex" + stu_id).val();
+                var stu_age = $("#stu_age" + stu_id).val();
+                var stu_phone = $("#stu_phone" + stu_id).val();
+                $.ajax({
+                    url: '/student/update/',
+                    type: 'post',
+                    data: {
+                        'stu_id': stu_id,
+                        'stu_name': stu_name,
+                        'stu_sex': stu_sex,
+                        'stu_age': stu_age,
+                        'stu_phone': stu_phone
+                    },
+                    success: function (data) {
+                        if (data.msg === 1) {
+                            location.href = '/student/student/'
+                        } else {
+                            alert('修改失败')
+                        }
+                    }
+                })
+            });
+        })
+    </script>
+{% endblock %}
