@@ -82,8 +82,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 3306,
         'NAME': 'clf_manage',
-        'USER': 'root',
-        'PASSWORD': 'jiang299011314@',
+        'USER': '',
+        'PASSWORD': '',
         # 'OPTIONS': {
         #     "init_command": "SET foreign_key_checks = 0;",
         # }
